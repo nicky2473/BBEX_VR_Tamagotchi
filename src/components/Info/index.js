@@ -1,26 +1,31 @@
-import PropTypes from "prop-types";
-import React, { PureComponent } from "react";
-import InfoView from "./InfoView";
-import { talk } from "../../talk";
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+import InfoView from './InfoView';
+import { rotate } from '../../rotate';
 
 export default class Info extends PureComponent {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    pos: PropTypes.number.isRequired
   };
 
   state = {
-    open: false
+    open: false,
   };
 
   render() {
-    const { name } = this.props;
-    return <InfoView name={name} onClick={this.handleClick} />;
+    const { name } = this.props
+    const { open } = this.state;
+    return (
+      <InfoView
+        name={name}
+        open={open}
+        onClick={this.handleClick}
+      />
+    );
   }
 
   handleClick = () => {
-    const { pos } = this.props;
     this.setState(({ open }) => ({ open: !open }));
-    talk({ pos });
+    rotate();
   };
 }
